@@ -3,7 +3,8 @@ File name: chapter5exercise17.cpp
 programmer: Blake Jewell
 Date: 04/25
 Requirements: write a program that generates 2 numbers to be added
-together, then waits for the user to hit enter, and displays the answer
+together, then waits for the user to enter an anwser. the program
+should then tell the user if they are correct or not.
 */
 
 #include <iostream>
@@ -14,6 +15,7 @@ together, then waits for the user to hit enter, and displays the answer
 int random();
 void addition(int, int);
 char choice_();
+void checking_answer(int, int);
 
 using namespace std;
 
@@ -40,16 +42,17 @@ int random() //This function generates random numbers
 void addition(int num1, int num2) //This function takes in numbers, adds them together, and displays this info for the user
 {
 
-	cout << "Add these 2 numbers together and hit the Enter key when you want to see the answer!" << endl;
+	cout << "Add these 2 numbers together. Then type in your answer and hit the Enter key" << endl;
 	cout << "\n";
 
 	cout << setw(10) << num1 << endl;
 	cout << setw(7) << "+" << num2 << endl;
 
 	int answer = num1 + num2;
-	cin.get();
-	cin.ignore();
-	cout << setw(10) << answer << endl;
+	int useranswer;
+	cin >> useranswer;
+	
+	checking_answer(useranswer, answer);
 
 }
 char choice_() //This function asks the user to exit or continue the program
@@ -69,6 +72,17 @@ char choice_() //This function asks the user to exit or continue the program
 	}
 	return question;
 
+}
+void checking_answer(int answer, int useranswer) //This function lets the user know if they are right or wrong
+{
+	if (useranswer == answer)
+	{
+		cout << "Correct!" << endl;
+	}
+	else
+	{
+		cout << "Incorrect. Answer is "<<answer << endl;
+	}
 }
 
 
