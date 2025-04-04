@@ -2,9 +2,11 @@
 File name: chapter5exercise17.cpp
 programmer: Blake Jewell
 Date: 04/25
-Requirements: write a program that generates 2 numbers to be added
-together, then waits for the user to enter an anwser. the program
-should then tell the user if they are correct or not.
+Requirements: write a program that generates 2 numbers to be added,
+subracted, multiplied, or divided. display a menu that has each of
+these options to choose from, along with an exit option. make sure the whole 
+program loops.
+
 */
 
 #include <iostream>
@@ -13,6 +15,7 @@ should then tell the user if they are correct or not.
 #include <cstdlib>
 
 int random();
+int smaller_random();
 void addition();
 void subraction();
 void multiplication();
@@ -24,10 +27,12 @@ using namespace std;
 
 int main()
 {
-	int choice = menu();
-	do 
-	{
-		
+	int x = 1;          //I was having an issue where the "choice" variable would not reset
+	                    //between loops. Int x is just there so I can have a loop and reset
+	                    //the choice variable. I am sure there is a better way to do it.
+	while (x==1)
+	{	
+		int choice = menu();
 		switch (choice)
 		{
 		case 1:
@@ -41,18 +46,24 @@ int main()
 			break;
 		case 4:
 			division();
-			break;
-			
+			break;	
 		}
-		int choice = menu();
-	} while (choice <1 && choice > 4);
+		
+	} 
 	return 0;
-
 }
 int random() //This function generates random numbers
 {
 	random_device math;                              //Random engine
 	uniform_int_distribution<int> number(100, 999);  //Random distributor
+
+	int number1 = number(math);                      //defining random intergers
+	return number1;
+}
+int smaller_random() // this function is specifically for generating rand numbers for multiplying and dividing
+{
+	random_device math;                              //Random engine
+	uniform_int_distribution<int> number(1, 20);  //Random distributor
 
 	int number1 = number(math);                      //defining random intergers
 	return number1;
@@ -75,7 +86,7 @@ void addition() //This function takes in numbers, adds them together, and displa
 	checking_answer(answer, useranswer);
 
 }
-void subraction()
+void subraction() //this function subracts 2 numbers
 {
 	int num1 = random();
 	int num2 = random();
@@ -92,10 +103,10 @@ void subraction()
 
 	checking_answer(answer, useranswer);
 }
-void multiplication()
+void multiplication() //this function multiplies two random rumbers
 {
 	int num1 = random();
-	int num2 = random();
+	int num2 = smaller_random();
 
 	cout << "Multiply these 2 numbers together. Then type in your answer and hit the Enter key" << endl;
 	cout << "\n";
@@ -109,12 +120,12 @@ void multiplication()
 
 	checking_answer(answer, useranswer);
 }
-void division()
+void division() // this function divides two random numbers
 {
 	int num1 = random();
-	int num2 = random();
+	int num2 = smaller_random();
 
-	cout << "Divide these two numbers. Then type in your answer and hit the Enter key" << endl;
+	cout << "Divide these two numbers. Then type in your answer (round down to the nearest whole number) and hit the Enter key" << endl;
 	cout << "\n";
 
 	cout << setw(10) << num1 << endl;
@@ -137,7 +148,7 @@ void checking_answer(int answer, int useranswer) //This function lets the user k
 		cout << "Incorrect. Answer is "<<answer << endl;
 	}
 }
-int menu()
+int menu() //displays a menu and gets user info for options 1-5
 {
 	int selection;
 	cout << "PLEASE SELECT ONE OF THE FOLLOWING MENU OPTIONS (1-5)" << endl;
@@ -147,6 +158,7 @@ int menu()
 	cout << "(3) Multiplication" << endl;
 	cout << "(4) Division" << endl;
 	cout << "(5) Exit " << endl;
+	
 	cin >> selection;
 	while (selection < 1 || selection > 5)
 	{
@@ -159,6 +171,7 @@ int menu()
 		exit(0);
 	}
 	return selection;
+	
 }
 
 
