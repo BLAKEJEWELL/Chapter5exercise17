@@ -52,7 +52,7 @@ void addition(int num1, int num2) //This function takes in numbers, adds them to
 	int useranswer;
 	cin >> useranswer;
 	
-	checking_answer(useranswer, answer);
+	checking_answer(answer, useranswer);
 
 }
 char choice_() //This function asks the user to exit or continue the program
